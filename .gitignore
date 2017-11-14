@@ -2,7 +2,7 @@
 .env
 *.log
 .DS_Store
-./public/uploads
+./public/uploads/*
 ./runtime/*
 composer.lock
 
