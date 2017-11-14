@@ -4,7 +4,7 @@ namespace app\admin\controller\auth;
 
 use app\admin\controller\CommonController;
 use app\admin\model\AuthRule;
-use lea\Tree;
+use app\common\util\Tree;
 use think\Db;
 
 /**

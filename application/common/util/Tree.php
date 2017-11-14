@@ -1,6 +1,6 @@
 <?php
 
-namespace lea;
+namespace app\common\util;
 
 /**
  * 无限分级类

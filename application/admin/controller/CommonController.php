@@ -10,7 +10,6 @@ namespace app\admin\controller;
 
 use app\common\controller\BaseCotroller;
 use app\common\util\Auth;
-use think\Response;
 
 class CommonController extends BaseCotroller
 {

@@ -7,7 +7,7 @@
  */
 return [
     'view_replace_str' => [
-        '__PUBLIC__' => '/static/admin',
+        '__PUBLIC__' => '/public/admin',
     ],
 
     // URL伪静态后缀
@@ -20,22 +20,5 @@ return [
         'auth_group_access' => 'auth_group_access', // 用户-用户组关系表
         'auth_rule'         => 'auth_rule', // 权限规则表
         'auth_user'         => 'admin', // 用户信息表
-    ],
-    // +----------------------------------------------------------------------
-    // | 会话设置
-    // +----------------------------------------------------------------------
-
-    'session' => [
-        'prefix'         => 'education_',
-        'type'           => 'redis',
-        'expire'         => 21600,
-        'var_session_id' => '',
-        // redis主机
-        'host'           => '127.0.0.1',
-        // redis端口
-        'port'           => 6379,
-        // 密码
-        'password'       => '',
-        'auto_start'     => true,
     ],
 ];

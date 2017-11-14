@@ -24,10 +24,6 @@ class FileController extends CommonController
             return json(['status' => 5, 'msg' => '文件不存在']);
         }
 
-        if ($type == 'image') {
-            $image = Image::open($file);
-        }
-
         //获取上传配置
         $config = config('upload');
         $path   = $config['upload_path'] . DS . $type;
@@ -56,24 +52,6 @@ class FileController extends CommonController
         } else {
             return json(['code' => -10, 'msg' => $file->getError()]);
         }
-    }
-
-    public function image()
-    {
-        $id = Request::instance()->get('id', '', 'trim');
-        if (!is_numeric($id)) {
-            $id = (new Hashids('', 10))->decode($id);
-            $id = $id[0];
-        }
-        $image = Db::name('uploads')->find($id);
-
-        if ($image) {
-            $path = config('upload.upload_path') . DS . $image['type'] . DS . $image['path'];
-        } else {
-            $path = ROOT_PATH . 'public/static/admin/dist/img/error.png';
-        }
-        $content = file_get_contents($path);
-        return response($content, 200, ['Content-Length' => strlen($content)])->contentType('image/jpeg');
     }
 
     //上传文件
