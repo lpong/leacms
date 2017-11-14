@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>{$Think.config.web_site_title} | 登录</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="__PUBLIC__/dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="__PUBLIC__/layui/css/layui.css">
+    <link rel="stylesheet" href="__PUBLIC__/dist/css/style.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="hold-transition login-page" style="background: url(__PUBLIC__/dist/img/bg.jpg) center center;">
+<style type="text/css">
+    .login-body {
+        width: 100%;
+        height: 100%;
+        min-height: 500px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .login-box {
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        margin: -160px 0 0 -180px;
+    }
+</style>
+<div class="login-body">
+    <div class="login-box">
+        <div class="login-logo">
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg" style="font-size: 18px">{:config('web_site_title')}
+                <br>
+                <small>管理后台</small>
+            </p>
+            <form action="" method="post" id="login">
+                <div class="form-group has-feedback">
+                    <input type="text" name="username" value="{:cookie('username')}" class="form-control"
+                           placeholder="账号">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" name="password" class="form-control" placeholder="密码">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button type="button" class="btn btn-primary btn-block" id="submit">登 录</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+            <div class="social-auth-links text-center">
+                <p>- TFcmf 后台管理系统 -</p>
+            </div>
+            <!-- /.social-auth-links -->
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+</div>
+<!-- /.login-box -->
+<!-- jQuery 2.2.3 -->
+<script src="__PUBLIC__/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="__PUBLIC__/bootstrap/js/bootstrap.min.js"></script>
+<script src="__PUBLIC__/layui/layui.js"></script>
+<script>
+    $(function () {
+        $('#submit').click(function () {
+            $('#submit').attr('disabled', true);
+            $.post("{:url()}", $('#login').serialize(), function (data) {
+                layui.use('layer', function () {
+                    layer.msg(data.msg, {
+                        time: 1500
+                    }, function () {
+                        if (data.code == 1) {
+                            window.location.href = data.url;
+                            return false;
+                        }
+                        $('#submit').attr('disabled', false);
+                    });
+                });
+
+            });
+        });
+
+        $(this).keydown(function (e) {
+            if (e.which == "13") {
+                $('#submit').click();
+            }
+        })
+    });
+</script>
+</body>
+
+</html>

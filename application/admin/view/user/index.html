@@ -1,0 +1,27 @@
+<extend name="public/base" />
+<block name="body">
+    <div class="navbar navbar-default">
+        <form class="navbar-form form-inline" method="post">
+            <div class="form-group">
+                <label>是否绑定微信：</label>
+                <select name="type" class="form-control input-sm">
+                    <option value="0">全部</option>
+                    <option value="1">是</option>
+                    <option value="2">否</option>
+                </select>
+                <label style="margin-left: 20px">搜索：</label>
+                <input type="text" name="keyword" class="form-control input-sm" placeholder="用户名、手机号" style="width:240px;">
+            </div>
+            <div class="form-group" style="margin-left: 20px">
+                <label>注册时间时间：</label>
+                <input type="text" name="range_time" placeholder="时间区间" class="form-control input-sm laydate-range">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-sm search"><i class="fa fa-search"></i> 搜索</button>
+            </div>
+        </form>
+    </div>
+    <div class="ajax-list table-responsive" data-url="{:url('lists')}">
+        <p><i class="fa fa-spinner fa-spin"></i> 加载中...</p>
+    </div>
+</block>

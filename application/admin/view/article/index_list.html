@@ -1,0 +1,44 @@
+<table class="table table-bordered table-condensed text-center">
+    <thead>
+        <tr>
+            <th style="width: 48px">#</th>
+            <th style="width:400px">标题</th>
+            <eq name="Think.post.cate" value="0">
+                <th style="width: 64px">类型</th>
+            </eq>
+            <th>链接</th>
+            <th>更新时间</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <volist name="list" id="vo">
+            <tr>
+                <td class="">{$vo.id}</td>
+                <td>
+                    <div style="text-align:left;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;width:400px;" title="{$vo.title}">{$vo.title}</div>
+                </td>
+                <eq name="Think.post.cate" value="0">
+                    <td>
+                        {$cate[$vo.cate]|default=''}
+                    </td>
+                </eq>
+                <td><code><a href="{$Request.domain}/view/{$vo.id}" class="iframe" data-width="480px">{$Request.domain}/view/{$vo.id}</a></code></td>
+                <td>{$vo.update_time|date="Y-m-d H:i",###}</td>
+                <td><a href="{:url('setStatus',['id'=>$vo['id'],'status'=>abs(1-$vo['status'])])}" class="ajax-get" msg="0"><span class="{$vo.status?'text-yellow':'text-muted'}"><i class="fa fa-circle"></i> {$vo.status?'上架':'下架'}</span></a></td>
+                <td>
+                    <div class="text-left">
+                        <a href="{:url('edit',['id'=>$vo['id']])}" class="btn btn-xs btn-info" title="修改"><i class="fa fa-edit"></i> 修改</a>
+                        <neq name="vo.cate" value="1">
+                            <a href="{:url('delete',['id'=>$vo['id']])}" title="删除" confirm="1" class="btn btn-xs btn-danger ajax-get"><i class="fa fa-trash"></i> 删除</a>
+                        </neq>
+                    </div>
+                </td>
+            </tr>
+        </volist>
+    </tbody>
+</table>
+<div class="pull-right">
+    {$list->render()}
+</div>

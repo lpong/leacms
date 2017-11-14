@@ -1,0 +1,27 @@
+<extend name="public/base"/>
+<block name="body">
+    <!-- <blockquote class="layui-elem-quote layui-quote-nm">选择表，进行备份；恢复时可选择清库恢复</blockquote> -->
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <div data-url="{:url('lists')}" form="1" class="ajax-list table-responsive">
+                    <p><i class="fa fa-spinner fa-spin"></i> 加载中...</p>
+                </div>
+                <hr>
+                <a href="{:url('backup')}" class="btn btn-info btn-sm ajax-backup" title="添加配置"><i
+                        class="fa fa-magic"></i><span>备份</span> </a>
+                <a href="{:url('repair')}" class="btn btn-info btn-sm ajax-get" title="添加配置"><i class="fa fa-magic"></i>
+                    修复</a>
+            </div>
+
+            <div class="layui-tab-item">1</div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        $('.ajax-backup').click(function () {
+
+        });
+    </script>
+</block>

@@ -1,0 +1,26 @@
+<extend name="public/base" />
+<block name="body">
+    <div class="navbar navbar-default">
+        <form class="navbar-form form-inline" method="post">
+            <div class="form-group">
+                <label>类型：</label>
+                <select name="cate" class="form-control input-sm">
+                    <option value="0">全部</option>
+                    <volist name="cate" id="vo">
+                        <option value="{$key}">{$vo}</option>
+                    </volist>
+                </select>
+                <input type="text" name="keyword" class="form-control input-sm" placeholder="关键词" style="width:240px;">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-sm search"><i class="fa fa-search"></i> 搜索</button>
+            </div>
+            <div class="form-group pull-right">
+                <a href="{:url('add')}" class="btn btn-info btn-sm" title="添加文章"><i class="fa fa-plus"></i> 添加</a>
+            </div>
+        </form>
+    </div>
+    <div class="ajax-list table-responsive" data-url="{:url('index')}">
+        <p><i class="fa fa-spinner fa-spin"></i> 加载中...</p>
+    </div>
+</block>

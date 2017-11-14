@@ -1,0 +1,29 @@
+<table class="table table-bordered table-striped table-hover table-condensed text-center tree">
+    <thead>
+    <tr>
+        <th style="width: 80px">#</th>
+        <th style="width: 600px">消息内容</th>
+        <th>接受对象</th>
+        <th>发布时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <volist name="list" id="vo">
+        <tr>
+            <td>{$vo.id}</td>
+            <td>
+                <div style="text-align:left;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;width:600px;"
+                     title="{$vo.msg}">{$vo.msg}
+                </div>
+            </td>
+            <td>
+                全员
+            </td>
+            <td>{$vo.at_time|date="Y-m-d H:i",###}</td>
+        </tr>
+    </volist>
+    </tbody>
+</table>
+<div class="pull-right">
+    {$list->render()}
+</div>

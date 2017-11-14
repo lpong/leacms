@@ -1,0 +1,147 @@
+<extend name="public/base" />
+<block name="body">
+    <div class="box-body">
+        <style type="text/css">
+        .img {
+            display: block;
+            float: left;
+            width: 150px;
+            height: 100px;
+            margin-top: 12px;
+            margin-right: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .img:hover .btn {
+            display: block;
+        }
+
+        .img .btn {
+            display: none;
+            position: absolute;
+            right: 2px;
+            top: 2px;
+            font-size: 18px;
+            color: red;
+        }
+
+        .img img {
+            max-width: 100%;
+        }
+        </style>
+        <form class="layui-form" action="{:url()}" method="post" id="goods-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">标题</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" placeholder="" lay-verify="required" value="{$info.title|default=''}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">类型</label>
+                <div class="layui-input-inline">
+                    <select name="cate" class="form-control input-sm" lay-verify="required">
+                        <option value=""></option>
+                        <volist name="cate" id="vo">
+                            <option value="{$key}" <php>if(isset($info)&&$info['cate']==$key):echo 'selected="selected"';endif;</php>
+                                <php>if(!isset($info) && 2==$key ):echo 'selected="selected"';endif;</php>>{$vo}</option>
+                        </volist>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">封面图</label>
+                <div class="layui-input-block">
+                    <button type="button" class="btn btn-primary btn-flat" id="upload-single">
+                        <i class="fa fa-file-image-o"></i>上传图片
+                    </button>
+                    <div class="timeline-body">
+                        <notempty name="info.cover_id">
+                            <div class="img"><a class="btn btn-xs"><i class="fa fa-trash"></i></a><img src="{$info.cover_id|get_file_path}" class="img-responsive">
+                                <input type="hidden" name="cover_id" value="{$info.cover_id}">
+                            </div>
+                        </notempty>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="status" value="1" title="上架" <php>if(!isset($info)||$info['status']==1):echo 'checked';endif</php>>
+                    <input type="radio" name="status" value="0" title="下架" <php>if(isset($info)&&$info['status']==0):echo 'checked';endif</php>>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">详情</label>
+                <div class="layui-input-block">
+                    <textarea id="content" name="content" style="display: none;">{$info.content|default=""}</textarea>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            <input type="hidden" name="cate_id" value="{$info.cate_id|default='1'}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="btn btn-primary" lay-submit lay-filter="layform1" target="1"><i class="fa fa-save"></i> 保存</button>
+                    <button type="reset" class="btn btn-default" style="margin-left: 20px;">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+    layui.use(['layer', 'element', 'form', 'layedit', 'upload'], function() {
+        var layedit = layui.layedit;
+        var form = layui.form;
+        var upload = layui.upload;
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#upload-single',
+            url: '{:url("file/upload",["type"=>"image"])}',
+            done: function(res) {
+                if (res.code == 0) {
+                    var input = this.item;
+                    $(input).closest('.layui-form-item').find('.timeline-body').html('<div class="img"><a class="btn btn-xs"><i class="fa fa-trash"></i></a><img src="' + res.data.src + '" class="img-responsive" ><input type="hidden" name="cover_id" value="' + res.data.id + '"></div>')
+                } else {
+                    layer.msg(res.msg);
+                }
+            }
+
+        });
+
+        layedit.set({
+            uploadImage: {
+                url: '{:url("file/upload",["type"=>"image"])}'
+            }
+        });
+        var index = layedit.build('content'); //建立编辑器
+
+        //监听提交
+        form.on('submit(layform1)', function(data) {
+            layedit.sync(index)
+            var target = $(data.elem).attr('target') || 0;
+            $.post(data.form.action, $('#goods-form').serialize(), function(res) {
+                if (res.code == 1) {
+                    layer.msg(res.msg, {
+                        time: 1000,
+                        icon: 6
+                    }, function() {
+                        layer.close(index);
+                        window.location.href = res.url;
+                    });
+                } else {
+                    var str = res.msg || '服务器异常';
+                    layer.msg(str, {
+                        time: 1500,
+                        icon: 5
+                    });
+                }
+            });
+            return false;
+        });
+        $('#goods-form').on('click', '.img a.btn', function() {
+            $(this).closest('.img').remove();
+        });
+    });
+    </script>
+</block>

@@ -1,0 +1,40 @@
+<table class="table table-bordered table-hover layui-form text-center" id="tables">
+    <thead>
+    <tr>
+        <th style="width: 48px"><input type="checkbox" lay-filter="checked-all" lay-skin="primary"></th>
+        <th width="150">
+            <div class="text-left">表名</div>
+        </th>
+        <th>行数</th>
+        <th>大小</th>
+        <th>引擎</th>
+        <th>编码</th>
+        <th width="250">备注</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <volist name="list" id="vo">
+        <tr>
+            <td><input type="checkbox" name="ids[]" lay-skin="primary" value="{$vo.name}"></td>
+            <td>
+                <div class="text-left" title="{$vo.name}">{$vo.name}</div>
+            </td>
+            <td>{$vo.rows}</td>
+            <td>{:round($vo['data_length']/1024,2)}Kb</td>
+            <td>{$vo.engine}</td>
+            <td>{$vo.collation}</td>
+            <td>
+                <div style="display:block;width:240px;text-align:left;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                    {$vo.comment}
+                </div>
+            </td>
+        </tr>
+    </volist>
+    <empty name="list">
+        <tr>
+            <td colspan="7">没有数据</td>
+        </tr>
+    </empty>
+    </tbody>
+</table>

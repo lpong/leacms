@@ -1,0 +1,22 @@
+<extend name="public/base"/>
+<block name="body">
+    <div class="navbar navbar-default">
+        <form class="navbar-form form-inline search" method="post">
+            <div class="form-group">
+                <select name="group" class="form-control input-sm">
+                    <option value="">全部分组</option>
+                    <volist name="group" id="vo">
+                        <option value="{$key}">{$vo}</option>
+                    </volist>
+                </select>
+            </div>
+            <div class="form-group pull-right">
+                <a href="{:url('add')}" class="btn btn-info btn-sm ajax-form" title="添加配置"><i class="fa fa-plus"></i> 添加</a>
+            </div>
+        </form>
+    </div>
+    <div class="ajax-list table-responsive" data-url="{:url('lists')}">
+        <p><i class="fa fa-spinner fa-spin"></i> 加载中...</p>
+    </div>
+</block>
+

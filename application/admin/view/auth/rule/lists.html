@@ -1,0 +1,48 @@
+<style type="text/css">
+    table .html {
+        font-family: Arial;
+        padding-right: 4px;
+    }
+</style>
+<table class="table table-bordered table-condensed table-striped  text-center">
+    <tbody>
+    <tr>
+        <th style="width: 48px">#</th>
+        <th>
+            <div class="text-left">标题</div>
+        </th>
+        <th>
+            <div class="text-left">规则</div>
+        </th>
+        <th>图标</th>
+        <td>菜单</td>
+        <th style="width: 80px">排序</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    <volist name="list" id="vo">
+        <tr>
+            <td>{$key+1}</td>
+            <td>
+                <div class="text-left" title="{$vo.remark}"><span class="html">{$vo.html}</span> {$vo.title}</div>
+            </td>
+            <td>
+                <div class="text-left"> {$vo.name}</div>
+            </td>
+            <td><i class="fa {$vo.icon}"></i></td>
+            <td><a href="{:url('menu',['id'=>$vo['id'],'is_menu'=>abs(1-$vo['is_menu'])])}" class="ajax-get" msg="0">{$vo.is_menu?'<span
+                    class="text-yellow">是</span>':'<span class="text-muted">否</span>'}</a></td>
+            <td>
+                <input type="number" name="sort" data-url="{:url('sort',['id'=>$vo['id']])}"
+                       class="form-control input-sm input-sort" value="{$vo.sort}" data-val="{$vo.sort}">
+            </td>
+            <td><span class="{$vo.status?'text-yellow':'text-muted'}"><i class="fa fa-circle"></i> {$vo.status?'正常':'禁用'}</span>
+            </td>
+            <td><a href="{:url('edit',['id'=>$vo['id']])}" class="btn btn-xs btn-info ajax-form" title="修改规则"><i
+                    class="fa fa-edit"></i></a> <a href="{:url('delete',['id'=>$vo['id']])}" title="删除" confirm="1"
+                                                   class="btn btn-xs btn-danger ajax-get"><i
+                    class="fa fa-trash"></i></a></td>
+        </tr>
+    </volist>
+    </tbody>
+</table>

@@ -1,0 +1,85 @@
+<div class="box-body" style="min-width: 640px">
+    <style type="text/css">
+    .img {
+        display: block;
+        float: left;
+        width: 150px;
+        height: 100px;
+        margin-top: 12px;
+        margin-right: 12px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .img:hover .btn {
+        display: block;
+    }
+
+    .img .btn {
+        display: none;
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        font-size: 18px;
+        color: red;
+    }
+
+    .img img {
+        max-width: 100%;
+    }
+    </style>
+    <form class="layui-form" action="{:url()}" method="post" id="goods-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" value="{$info.title|default=''}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-inline">
+                <select name="type" class="form-control input-sm">
+                    <volist name="type" id="vo">
+                        <option value="{$key}" <php>if(isset($info)&&$info['type']==$key):echo 'selected="selected"';endif;</php> >{$vo}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">行为</label>
+            <div class="layui-input-inline">
+                <select name="action_type" class="form-control input-sm">
+                    <volist name="action_type" id="vo">
+                        <option value="{$key}" <php>if(isset($info)&&$info['action_type']==$key):echo 'selected="selected"';endif;</php> >{$vo}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">参数</label>
+            <div class="layui-input-block">
+                <input type="text" name="action_param" value="{$info.action_param|default=''}" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">如果是外链H5请填写完整url地址；如果是专栏、精品课或听书产品请填写相应id</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">封面图</label>
+            <div class="layui-input-block">
+                {:action('FileController/webUpload',['field'=>'picture','type'=>'image','value'=>(isset($info['picture'])?$info['picture']:'')])}
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-inline">
+                <input type="number" name="sort" value="{$info.sort|default='0'}" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <input type="text" name="remark" value="{$info.remark|default=''}" class="layui-input">
+            </div>
+        </div>
+        <input type="hidden" name="id" value="{$info.id|default=''}">
+    </form>
+</div>

@@ -1,0 +1,73 @@
+<extend name="public/base"/>
+<block name="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box  box-primary">
+                <div class="box-header with-border">
+                    <h3>服务器信息</h3>
+                </div>
+                <div class="box-body">
+                    <div class="info-box">
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <td>服务器操作系统：</td>
+                                <td>{$sys_info.os}</td>
+                                <td>服务器域名/IP：</td>
+                                <td>{$sys_info.domain} [ {$sys_info.ip} ]</td>
+                                <td>服务器环境：</td>
+                                <td>{$sys_info.web_server}</td>
+                            </tr>
+                            <tr>
+                                <td>PHP 版本：</td>
+                                <td>{$sys_info.phpv}</td>
+                                <td>Mysql 版本：</td>
+                                <td>{$sys_info.mysql_version}</td>
+                                <td>GD 版本</td>
+                                <td>{$sys_info.gdinfo}</td>
+                            </tr>
+                            <tr>
+                                <td>文件上传限制：</td>
+                                <td>{$sys_info.fileupload}</td>
+                                <td>最大占用内存：</td>
+                                <td>{$sys_info.memory_limit}</td>
+                                <td>最大执行时间：</td>
+                                <td>{$sys_info.max_ex_time}</td>
+                            </tr>
+                            <tr>
+                                <td>安全模式：</td>
+                                <td>{$sys_info.safe_mode}</td>
+                                <td>Zlib支持：</td>
+                                <td>{$sys_info.zlib}</td>
+                                <td>Curl支持：</td>
+                                <td>{$sys_info.curl}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3>版权信息</h3>
+                </div>
+                <div class="box-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        var html = '<div style="padding: 20px 30px; background: rgb(243, 156, 18); z-index: 999999; font-size: 16px; font-weight: 600;"><a class="pull-right" href="#" data-toggle="tooltip" data-placement="left" title="" style="color: rgb(255, 255, 255); font-size: 18px;" data-original-title="关闭!">×</a><a href="javascript:;" style="color: rgba(255, 255, 255, 0.9); display: inline-block; margin-right: 10px; text-decoration: none;">为了您的体验，请使用支持WebKit内核的浏览器，如谷歌浏览器，QQ，360，搜狗等浏览器!</a><a class="btn btn-default btn-sm" href="http://rj.baidu.com/soft/detail/14744.html?ald" target="_blank" style="margin-top: -5px; border: 0px; box-shadow: none; color: rgb(243, 156, 18); font-weight: 600; background: rgb(255, 255, 255);">这就去下载!</a></div>';
+        $(document).ready(function () {
+            if (navigator.userAgent.indexOf("Chrome") == -1) {
+                $('.content-wrapper').prepend(html);
+            }
+        });
+    </script>
+</block>

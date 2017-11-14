@@ -1,0 +1,46 @@
+<table class="table table-bordered table-condensed text-center">
+    <thead>
+        <tr>
+            <th style="width: 48px">id</th>
+            <th>UUID</th>
+            <th style="width:120px">用户名</th>
+            <th style="width: 100px">手机号</th>
+            <th>是否绑定微信</th>
+            <th style="">注册时间</th>
+            <th>账户余额</th>
+            <th style="width: 120px">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <volist name="list" id="vo">
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.uuid}</td>
+                <td>
+                    {$vo.nickname}
+                </td>
+                <td>{$vo.mobile}</td>
+                <td>
+                    {$vo.openid?'是':'否'}
+                </td>
+                <td>{$vo.register_time}</td>
+                <td>
+                    <div class="text-right"><a href="{:url('balance',['id'=>$vo['id']])}" class="ajax-show text-blue" title="消费明细">{$vo.balance}</a></div>
+                </td>
+                <td>
+                    <div class="text-center">
+                        <a href="{:url('setStatus',['id'=>$vo['id'],'status'=>abs(1-$vo['status'])])}" class="ajax-get" msg="0"><span class="{$vo.status?'text-yellow':'text-muted'}"><i class="fa fa-circle"></i> {$vo.status?'启用':'禁用'}</span></a>
+                    </div>
+                </td>
+            </tr>
+        </volist>
+        <empty name="list">
+            <tr>
+                <td colspan="8">没有数据</td>
+            </tr>
+        </empty>
+    </tbody>
+</table>
+<div class="pull-right">
+    {$page}
+</div>

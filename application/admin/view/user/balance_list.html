@@ -1,0 +1,51 @@
+<table class="table table-bordered table-condensed text-center" id="audio-play">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th style="width:320px">事件名称</th>
+            <th>支付方式</th>
+            <th>变化额度</th>
+            <th>变化后额度</th>
+            <th>关联订单号</th>
+            <th style="width: 140px">发布时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <volist name="record" id="vo">
+            <php>$data = json_decode($vo['data'],true);</php>
+            <tr>
+                <td>{$vo.id}</td>
+                <td>
+                    <div style="text-align:left;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;width:320px;" title="">
+                        <eq name="vo.type" value="recharge">
+                            充值
+                            <else /> 购买{$cate[$data['cate']]|default=''}
+                            <<{$data.title}>>
+                        </eq>
+                    </div>
+                </td>
+                <td>{$payment[$vo['payment']]}</td>
+                <td>
+                    <div class="text-right">
+                        {$vo.change}
+                    </div>
+                </td>
+                <td>
+                    <notempty name="data.balance_result">
+                        <div class="text-right">{$data.balance_result|number_format=###,2}</div>
+                    </notempty>
+                </td>
+                <td>{$vo.order_no}</td>
+                <td>{$vo.at_time|date='Y-m-d H:i:s',###}</td>
+            </tr>
+        </volist>
+        <empty name="record">
+            <tr>
+                <td colspan="7">无交易记录</td>
+            </tr>
+        </empty>
+    </tbody>
+</table>
+<div class="pull-right">
+    {$record->render()}
+</div>

@@ -1,0 +1,40 @@
+<block name="body">
+    <table class="table table-bordered table-condensed text-center">
+        <tbody>
+        <tr>
+            <th style="width: 48px">#</th>
+            <th>
+                <div class="text-left">角色名称</div>
+            </th>
+            <th style="width:40%">备注</th>
+            <th style="width: 80px">排序</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        <volist name="list" id="vo">
+            <tr>
+                <td>{$key+1}</td>
+                <td>
+                    <div class="text-left">{$vo.name}</div>
+                </td>
+                <td>
+                    <div class="text-left">{$vo.remark}</div>
+                </td>
+                <td>{$vo.sort}</td>
+                <td><span class="{$vo.status?'text-yellow':'text-muted'}"><i class="fa fa-circle"></i> {$vo.status?'正常':'禁用'}</span>
+                </td>
+                <td>
+                    <neq name="vo.id" value="1">
+                        <a href="{:url('edit',['id'=>$vo['id']])}" class="btn btn-xs btn-info ajax-form" title="修改规则"><i
+                                class="fa fa-edit"></i> 修改</a>
+                        <a href="{:url('assigned',['id'=>$vo['id']])}" title="分配权限" class="btn btn-xs btn-warning"><i
+                                class="fa fa-sitemap"></i> 权限</a>
+                        <a href="{:url('delete',['id'=>$vo['id']])}" title="删除" confirm="1"
+                           class="btn btn-xs btn-danger ajax-get"><i class="fa fa-trash"></i> 删除</a>
+                    </neq>
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+</block>

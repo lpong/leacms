@@ -1,0 +1,15 @@
+<extend name="public/base"/>
+<block name="body">
+    <div class="navbar navbar-default">
+        <form class="navbar-form form-inline search" method="post">
+            <div class="form-group">
+                <a href="{:url('publish')}" class="btn btn-info btn-sm ajax-form" title="新增"><i class="fa fa-plus"></i>
+                    新增</a>
+            </div>
+        </form>
+    </div>
+    <div class="ajax-list table-responsive" data-url="{:url('lists')}">
+        <p><i class="fa fa-spinner fa-spin"></i> 加载中...</p>
+    </div>
+
+</block>

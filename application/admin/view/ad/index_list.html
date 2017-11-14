@@ -1,0 +1,57 @@
+<table class="table table-bordered text-center">
+    <thead>
+        <tr>
+            <th style="width: 48px">#</th>
+            <th style="width:240px">标题</th>
+            <eq name="Think.post.type" value="0">
+                <th style="width: 64px">类型</th>
+            </eq>
+            <th>图片</th>
+            <th>行为</th>
+            <th>更新时间</th>
+            <th style="width: 64px">排序</th>
+            <th>状态</th>
+            <th style="width: 130px">操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <volist name="list" id="vo">
+            <tr>
+                <td class="">{$vo.id}</td>
+                <td>
+                    <div style="text-align:left;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;width:240px;" title="{$vo.title}">{$vo.title}</div>
+                </td>
+                <eq name="Think.post.type" value="0">
+                    <td>
+                        {$type[$vo.type]|default=''}
+                    </td>
+                </eq>
+                <td class="layer-photo"><img src="{:\\lea\\Y::qiNiuResource($vo['picture'], 'file')}" alt="" style="max-height: 28px"></td>
+                <td title="{$vo.action_param}">{$action_type[$vo.action_type]|default=''}</td>
+                <td>{$vo.update_time|date="Y-m-d H:i",###}</td>
+                <td>
+                    <input type="number" name="sort" data-url="{:url('sort',['id'=>$vo['id']])}" class="form-control input-sm input-sort" value="{$vo.sort}" data-val="{$vo.sort}">
+                </td>
+                <td><a href="{:url('setStatus',['id'=>$vo['id'],'status'=>abs(1-$vo['status'])])}" class="ajax-get" msg="0"><span class="{$vo.status?'text-yellow':'text-muted'}"><i class="fa fa-circle"></i> {$vo.status?'上架':'下架'}</span></a></td>
+                <td>
+                    <div class="text-left">
+                        <a href="{:url('edit',['id'=>$vo['id']])}" class="btn btn-xs btn-info ajax-form" title="编辑"><i class="fa fa-edit"></i> 编辑</a>
+                        <a href="{:url('delete',['id'=>$vo['id']])}" title="删除" confirm="1" class="btn btn-xs btn-danger ajax-get"><i class="fa fa-trash"></i> 删除</a>
+                    </div>
+                </td>
+            </tr>
+        </volist>
+    </tbody>
+</table>
+<div class="pull-right">
+    {$list->render()}
+</div>
+<script type="text/javascript">
+//图片查看器
+layui.use('layer', function() {
+    layui.layer.photos({
+        photos: '.layer-photo',
+        anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机（请注意，3.0之前的版本用shift参数）
+    });
+});
+</script>

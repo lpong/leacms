@@ -1,0 +1,21 @@
+<extend name="public/base" />
+<block name="body">
+    <div class="navbar navbar-default">
+        <form class="navbar-form form-inline" method="post">
+            <div class="form-group">
+                <label>类型：</label>
+                <select name="type" class="form-control input-sm">
+                    <volist name="type" id="vo">
+                        <option value="{$key}" <eq name="i" value="1">selected="selected"</eq> >{$vo}</option>
+                    </volist>
+                </select>
+            </div>
+            <div class="form-group pull-right">
+                <a href="{:url('add')}" class="btn btn-info btn-sm ajax-form" title="添加"><i class="fa fa-plus"></i> 添加</a>
+            </div>
+        </form>
+    </div>
+    <div class="ajax-list table-responsive" data-url="{:url('index')}">
+        <p><i class="fa fa-spinner fa-spin"></i> 加载中...</p>
+    </div>
+</block>
