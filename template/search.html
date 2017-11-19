@@ -1,0 +1,31 @@
+<extend name="./template/base.html" />
+<block name="body">
+    <div class="main wid1200">
+        <div class="left">
+            <div class="plist_bt">{$parent.name}
+                <p>{$parent.short_name}</p>
+            </div>
+            <ul class="plist_bl">
+                <notempty name="category_list">
+                    <volist name="category_list" id="vo">
+                        <li><a href="/list/{$vo.id}">{$vo.name}</a></li>
+                    </volist>
+                </notempty>
+            </ul>
+        </div>
+        <div class="right">
+            <div class="">
+                <P>搜索 {:input('q')} 的结果</P>
+            </div>
+            <notempty name="article">
+                <ul class="prolist clearfix">
+                    <volist name="article" id="vo">
+                        <li><a href="/view/{$vo.id}"><img src="{$vo.cover}" width="220" height="180"><p>{$vo.title}</p></a></li>
+                    </volist>
+                </ul>
+                <div class="fanyi">{$article->render()}</div>
+            </notempty>
+        </div>
+        <div class="clear"></div>
+    </div>
+</block>

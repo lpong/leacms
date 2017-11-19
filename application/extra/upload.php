@@ -21,25 +21,5 @@ return [
     ],
 
     //上传的位置,也可以是/home/file定义
-    'upload_path'       => ROOT_PATH . 'public/uploads',
-
-    /**
-     * 七牛云,目前七牛云，也可以自己搭建文件服务器
-     */
-    'AccessKey'         => 'QY9AgTB1DBPrgugun0DLZ0hM7VO0eJT5_lupBYi8',
-    'SecretKey'         => '9JcQU8z3fCH_kJdumtqELnZKXyod_Ea7I2vM82oS',
-
-    'UploadUrl' => 'http://up-z1.qiniu.com',
-
-    'bucket' => [
-        'file'  => [
-            'host'    => 'http://oxwhk1gk1.bkt.clouddn.com',
-            'private' => false
-        ],
-        'audio' => [
-            'host'    => 'http://oxwhws9hg.bkt.clouddn.com',
-            'private' => true
-        ],
-    ]
-
+    'upload_path'       => ROOT_PATH . '/uploads',
 ];

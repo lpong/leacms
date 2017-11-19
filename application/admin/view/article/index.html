@@ -3,11 +3,11 @@
     <div class="navbar navbar-default">
         <form class="navbar-form form-inline" method="post">
             <div class="form-group">
-                <label>类型：</label>
-                <select name="cate" class="form-control input-sm">
+                <label>栏目分类：</label>
+                <select name="category_id" class="form-control input-sm">
                     <option value="0">全部</option>
-                    <volist name="cate" id="vo">
-                        <option value="{$key}">{$vo}</option>
+                    <volist name="category" id="vo">
+                        <option value="{$key}">{$vo.html}{$vo.name}</option>
                     </volist>
                 </select>
                 <input type="text" name="keyword" class="form-control input-sm" placeholder="关键词" style="width:240px;">

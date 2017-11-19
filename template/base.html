@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{:config('web_site_title')}</title>
+</head>
+<link href="/template/css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/template/js/jquery.min.js"></script>
+<script src="/template/js/jquery.flexslider-min.js"></script>
+
+<body>
+    <!--header B -->
+    <header class="wid1200">
+        <div class="logo fl"><img src="/template/images/pic_03.jpg" width="420" height="85"></div>
+        <div class="search fr">
+            <p class="tel">咨询热线：<span>{:config('c_tel')}</span></p>
+            <div class="clearfix">
+                <input type="text" id="keyword" class="tex fl">
+                <input type="button" id="search" value="{:input('q','')}" placeholder="搜索" class="btn fl">
+            </div>
+            <script type="text/javascript">
+            $('#search').click(function() {
+                var text = $('#keyword').val();
+                window.location.href = '/search?q=' + text;
+            });
+            </script>
+            <p class="font12">热门搜索：叠图机、晒图机、辅助产品</p>
+        </div>
+    </header>
+    <!--header E -->
+    <!--nav B -->
+    <div class="wrap">
+        <ul id="nav" class="wid1200">
+            <li><a href="/">首页</a></li>
+            <volist name="__category__" id="vo">
+                <li><a href="/list/{$vo.id}">{$vo.name}</a>
+                    <notempty name="vo.child">
+                        <ul>
+                            <volist name="vo.child" id="v">
+                                <li><a href="/list/{$v.id}">{$v.name}</a></li>
+                            </volist>
+                        </ul>
+                    </notempty>
+                </li>
+            </volist>
+            <li><a href="/list/7">联系我们</a>
+                <ul>
+                    <li><a href="/list/7">联系我们</a></li>
+                    <li><a href="#">在线留言</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#nav li').hover(function() {
+            $('ul', this).slideDown(200);
+            $(this).children('a:first').addClass("hov");
+        }, function() {
+            $('ul', this).slideUp(100);
+            $(this).children('a:first').removeClass("hov");
+        });
+
+        $(".in_pro_con li:nth-child(2n)").css("margin-left", "22px");
+    });
+    </script>
+    <!--nav E -->
+    <!--banner B -->
+    <div class="flexslider">
+        <ul class="slides">
+            <volist name="banner" id="vo">
+                <li style="background:url({$vo.picture}) 50% 0 no-repeat;"></li>
+            </volist>
+        </ul>
+    </div>
+    <script>
+    $(function() {
+        $('.flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false
+        });
+    });
+    </script>
+    <!--banner E -->
+    <!--main B -->
+    <block name="body"></block>
+    </div>
+    <!--main E -->
+    <!--footer B -->
+    <footer class="clearfix">
+        <div class="f_main wid1200">
+            <div class="f_l fl">
+                <dl>
+                    <dt>关于我们</dt>
+                    <php>$list = db('category')->where('pid',1)->where('status',1)->limit(5)->order('sort asc,id asc')->select();</php>
+                    <notempty name="list">
+                        <volist name="list" id="vo">
+                            <dd><a href="/list/{$vo.id}">{$vo.name}</a></dd>
+                        </volist>
+                    </notempty>
+                </dl>
+                <dl>
+                    <dt>产品中心</dt>
+                    <php>$list = db('category')->where('pid',2)->where('status',1)->limit(5)->order('sort asc,id asc')->select();</php>
+                    <notempty name="list">
+                        <volist name="list" id="vo">
+                            <dd><a href="/list/{$vo.id}">{$vo.name}</a></dd>
+                        </volist>
+                    </notempty>
+                </dl>
+                <dl>
+                    <dt>技术支持</dt>
+                    <php>$list = db('category')->where('pid',5)->where('status',1)->limit(5)->order('sort asc,id asc')->select();</php>
+                    <notempty name="list">
+                        <volist name="list" id="vo">
+                            <dd><a href="/list/{$vo.id}">{$vo.name}</a></dd>
+                        </volist>
+                    </notempty>
+                </dl>
+                <dl>
+                    <dt>联系我们</dt>
+                    <php>$list = db('category')->where('pid',7)->where('status',1)->limit(5)->order('sort asc,id asc')->select();</php>
+                    <notempty name="list">
+                        <volist name="list" id="vo">
+                            <dd><a href="/list/{$vo.id}">{$vo.name}</a></dd>
+                        </volist>
+                    </notempty>
+                </dl>
+            </div>
+            <div class="f_c fl">
+                工厂地址：天津市天津市天津市天津市天津市
+                <br> 联系电话：022-12345678、022-12345678
+                <br> FAX 传真：022-12345678
+                <br> 联络邮箱：123456789@qq.com
+            </div>
+            <div class="f_r fl"><img src="/template/images/wx_03.png" width="158" height="158"></div>
+            <div class="clear"></div>
+            <p class="link">友情链接 <a href="#">百度</a> <a href="#">百度</a> <a href="#">百度</a> <a href="#">百度</a> <a href="#">百度</a></p>
+            <p>版权所有 {:config('web_copyright')} {:config('web_beian')} 技术支持：<a href="http://www.wzjs888.com/">匠人匠心</a></p>
+        </div>
+    </footer>
+    <!--footer E -->
+</body>
+
+</html>

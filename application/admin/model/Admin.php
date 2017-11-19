@@ -59,7 +59,7 @@ class Admin extends Model
             'last_login_time' => $admin->last_login_time,
             'last_login_ip'   => $admin->last_login_ip,
             'group'           => $group,
-            'face'            => get_file_path($admin->face)
+            'face'            => $admin->face
         ]);
         Cookie::set('username', $admin->username);
         return true;

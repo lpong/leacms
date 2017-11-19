@@ -28,16 +28,4 @@ class Ad extends Model
     public static $adType = [
         1 => '轮播图'
     ];
-
-    /**
-     * 广告动作类型
-     * @var array
-     */
-    public static $actionType = [
-        0 => '无',
-        1 => 'html5',
-        2 => '专栏',
-        3 => '精品课',
-        4 => '听书产品',
-    ];
 }

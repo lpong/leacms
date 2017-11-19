@@ -277,7 +277,13 @@ class Auth
             cache('sys:cache:menu:' . $uid, $list);
         }
 
-        $crumb      = Tree::getParents($list, $self['id']);
+        $list1 = cache('sys:cache:menu1:' . $uid);
+        if (!$list1) {
+            unset($map['is_menu']);
+            $list1 = Db::name($this->config['auth_rule'])->field('id,pid,name,title,icon,sort')->where($map)->order('pid asc,sort asc,id asc')->select();
+            cache('sys:cache:menu1:' . $uid, $list1);
+        }
+        $crumb      = Tree::getParents($list1, $self['id']);
         $parent_ids = [];
 
         foreach ($crumb as $val) {

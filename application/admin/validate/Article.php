@@ -14,8 +14,8 @@ use think\Validate;
 class Article extends Validate
 {
     protected $rule = [
-        'title|标题'  => 'require|max:64',
-        'status|状态' => 'require|in:0,1',
+        'title|标题'       => 'require|max:64',
+        'category_id|分类' => 'require',
     ];
 
 }

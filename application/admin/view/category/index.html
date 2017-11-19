@@ -1,13 +1,44 @@
-<extend name="public/base"/>
+<extend name="public/base" />
 <block name="body">
     <div class="navbar navbar-default">
-        <form class="navbar-form form-inline search" method="post">
+        <form class="navbar-form form-inline" method="post">
             <div class="form-group">
-                <a href="{:url('add')}" class="btn btn-info btn-sm ajax-form" title="添加规则"><i class="fa fa-plus"></i> 添加</a>
+                <a href="{:url('add')}" class="btn btn-info btn-sm" title="添加规则"><i class="fa fa-plus"></i> 添加</a>
             </div>
         </form>
     </div>
-    <div class="ajax-list table-responsive" data-url="{:url('index')}">
-        <p><i class="fa fa-spinner fa-spin"></i> 加载中...</p>
+    <div class="table-responsive">
+        <style type="text/css">
+        table .html {
+            font-family: Arial;
+            padding-right: 4px;
+        }
+        </style>
+        <table class="table table-bordered table-condensed table-striped  text-center">
+            <tbody>
+                <tr>
+                    <th style="width: 48px">#</th>
+                    <th>
+                        <div class="text-left">名称</div>
+                    </th>
+                    <th style="width: 80px">排序</th>
+                    <th>操作</th>
+                </tr>
+                <volist name="list" id="vo">
+                    <tr>
+                        <td>{$key+1}</td>
+                        <td>
+                            <div class="text-left"><span class="html">{$vo.html}</span> {$vo.name}</div>
+                        </td>
+                        <td>
+                            <input type="number" name="sort" data-url="{:url('sort',['id'=>$vo['id']])}" class="form-control input-sm input-sort" value="{$vo.sort}" data-val="{$vo.sort}">
+                        </td>
+                        <td>
+                            <a href="{:url('edit',['id'=>$vo['id']])}" class="btn btn-xs btn-info" title=""><i  class="fa fa-edit"></i></a>
+                            <a href="{:url('delete',['id'=>$vo['id']])}" title="删除" confirm="1" class="btn btn-xs btn-danger ajax-get"><i     class="fa fa-trash"></i></a></td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
     </div>
 </block>

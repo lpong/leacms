@@ -14,12 +14,8 @@ class FileController extends CommonController
 
     public function upload(Request $request)
     {
-        $type = $request->request('type', 'image');
+        $type = 'image';
         $file = $request->file('file');
-        if (empty($file)) {
-            $file = $request->file('video');
-            $type = 'video';
-        }
         if (empty($file)) {
             return json(['status' => 5, 'msg' => '文件不存在']);
         }
@@ -33,24 +29,10 @@ class FileController extends CommonController
         $info = $file->validate(['size' => $config['upload_size_limit'][$type], 'ext' => $config['upload_type_limit'][$type]])->move($path);
 
         if ($info) {
-            $data          = [
-                'type'     => $type,
-                'ext'      => strtolower($info->getExtension()),
-                'path'     => $info->getSaveName(),
-                'filename' => $info->getFilename(),
-                'size'     => $info->getSize(),
-                'sha1'     => $info->hash('sha1'),
-                'width'    => isset($image) ? $image->width() : 0,
-                'height'   => isset($image) ? $image->height() : 0,
-                'mime'     => $info->getMime(),
-                'at_time'  => time()
-            ];
-            $id            = Db::name('uploads')->insertGetId($data);
-            $result['src'] = '/uploads/' . $type . '/' . $info->getSaveName();
-            $result['id']  = $id;
-            return json(['code' => 0, 'msg' => '上传成功', 'data' => $result]);
+            $key = '/uploads/' . $type . '/' . $info->getSaveName();
+            return json(['code' => 0, 'msg' => '上传成功', 'key' => $key]);
         } else {
-            return json(['code' => -10, 'msg' => $file->getError()]);
+            return json(['code' => 2, 'msg' => $file->getError()]);
         }
     }
 
@@ -180,19 +162,11 @@ class FileController extends CommonController
 
         $param['single'] = substr($field, -2) == '[]' ? '' : 1;
 
-        $qiniu          = new Qiniu();
-        $bucket         = $type == 'image' ? 'file' : 'audio';
-        $param['token'] = $qiniu->getToken($bucket);
-
         if (!empty($value)) {
             if (!is_array($value)) {
                 $value = array_filter(array_unique(explode(',', $value)));
             }
-            $temp = [];
-            foreach ($value as $val) {
-                $temp[$val] = $qiniu->getDownloadUrl($val, $bucket);
-            }
-            $param['value'] = $temp;
+            $param['value'] = $value;
         }
 
         $param['time'] = uniqid();

@@ -8,7 +8,9 @@
 
 namespace app\admin\controller;
 
-use app\admin\model\Article;
+use app\common\model\Article;
+use app\common\model\Category;
+use app\common\util\Tree;
 use think\Db;
 
 class ArticleController extends CommonController
@@ -17,18 +19,23 @@ class ArticleController extends CommonController
     public function _initialize()
     {
         parent::_initialize();
-        $this->assign('cate', Article::$cate);
+        $category = Category::all(['type' => Category::LIST_PAGE]);
+        $category = Tree::unlimitForLevel($category);
+        $this->assign('category', $category);
     }
 
     public function index()
     {
         if ($this->request->isAjax()) {
-            $cate = $this->request->post('cate', 0, 'intval');
-            $keyword = $this->request->post('keyword', '', 'trim');
+            $category_id = $this->request->post('category_id', 0, 'intval');
+            $keyword     = $this->request->post('keyword', '', 'trim');
 
             $model = Db::name('article')->where('status', 'in', '0,1');
-            if ($cate != '') {
-                $model->where('cate', $cate);
+            if ($category_id != '') {
+                $category = Category::all();
+                $son_ids  = Tree::getChildsId($category, $category_id);
+                array_push($son_ids, $category_id);
+                $model->where('category_id', 'in', array_unique($son_ids));
             }
             if ($keyword) {
                 $model->where('title', 'like', '%' . $keyword . '%');
@@ -36,6 +43,7 @@ class ArticleController extends CommonController
             $list = $model->order('id desc')->paginate(10);
             return view('index_list', [
                 'list' => $list,
+                'cate' => Category::getCategory()
             ]);
         } else {
             return view();
@@ -49,17 +57,15 @@ class ArticleController extends CommonController
     public function add()
     {
         if ($this->request->isPost()) {
-            $Article = new Article();
-            $post = $this->request->post();
+            $Article         = new Article();
+            $post            = $this->request->post();
             $post['content'] = $_POST['content'];
             if ($Article->validate(true)->allowField(true)->save($post) === false) {
                 $this->error($Article->getError());
             }
             $this->success('新增成功', url('index'));
         } else {
-            return view('edit', [
-                'cate' => Article::$cate,
-            ]);
+            return view('edit');
         }
     }
 
@@ -70,8 +76,8 @@ class ArticleController extends CommonController
     public function edit()
     {
         if ($this->request->isPost()) {
-            $Article = new Article();
-            $post = $this->request->post();
+            $Article         = new Article();
+            $post            = $this->request->post();
             $post['content'] = $_POST['content'];
             if ($Article->validate(true)->isUpdate(true)->allowField(true)->save($post) === false) {
                 $this->error($Article->getError());
@@ -95,7 +101,7 @@ class ArticleController extends CommonController
      */
     public function setStatus()
     {
-        $id = $this->request->get('id', 0, 'intval');
+        $id     = $this->request->get('id', 0, 'intval');
         $status = $this->request->get('status', 0, 'intval');
 
         if ($id > 0 && (new Article())->where('id', $id)->update(['status' => $status]) !== false) {
@@ -111,7 +117,7 @@ class ArticleController extends CommonController
     public function delete()
     {
         $id = $this->request->get('id', 0, 'intval');
-        if ($id > 0 && Db::name('article')->where('id', $id)->where('cate', 'neq', 1)->setField('status', 2) !== false) {
+        if ($id > 0 && Db::name('article')->where('id', $id)->setField('status', 2) !== false) {
             $this->success('删除成功');
         }
         $this->error('删除失败');

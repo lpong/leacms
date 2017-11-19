@@ -8,7 +8,7 @@
 
 namespace app\admin\controller;
 
-use app\admin\model\Category;
+use app\common\model\Category;
 use app\common\util\Tree;
 use think\Db;
 
@@ -16,15 +16,11 @@ class CategoryController extends CommonController
 {
     public function index()
     {
-        if ($this->request->isAjax()) {
-            $list = Db::name('category')->where('status', 'in', '0,1')->order('id desc')->select();
-            $list = Tree::unlimitForLevel($list, '├─', 0);
-            return view('index_list', [
-                'list' => $list,
-            ]);
-        } else {
-            return view();
-        }
+        $list = Db::name('category')->order('pid asc,sort desc')->select();
+        $list = Tree::unlimitForLevel($list, '├─', 0);
+        return view('index', [
+            'list' => $list,
+        ]);
     }
 
     /**
@@ -42,9 +38,10 @@ class CategoryController extends CommonController
             }
             $this->success('新增成功', url('index'));
         } else {
-            return view('edit', [
-                'cate' => Category::getCategory(),
-            ]);
+            $category = Category::all();
+            $category = Tree::unlimitForLevel($category);
+            $this->assign('category', $category);
+            return view('edit');
         }
     }
 
@@ -67,9 +64,11 @@ class CategoryController extends CommonController
             if (!$id) {
                 $this->error('文章不存在');
             }
-            $info = Article::get($id);
+            $info = Category::get($id);
             $this->assign('info', $info);
-            $this->assign('cate', Article::$cate);
+            $category = Category::all();
+            $category = Tree::unlimitForLevel($category);
+            $this->assign('category', $category);
             return view();
         }
     }

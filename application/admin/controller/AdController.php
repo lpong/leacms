@@ -18,7 +18,6 @@ class AdController extends CommonController
     {
         parent::_initialize();
         $this->assign('type', Ad::$adType);
-        $this->assign('action_type', Ad::$actionType);
     }
 
     public function index()

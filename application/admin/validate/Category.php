@@ -14,7 +14,7 @@ use think\Validate;
 class Category extends Validate
 {
     protected $rule = [
-        'title|标题'  => 'require|max:32',
+        'name|名称'  => 'require|max:32',
         'sort|排序' => 'require|number',
     ];
 

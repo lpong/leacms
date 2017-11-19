@@ -1,0 +1,94 @@
+<extend name="./template/base.html" />
+<block name="body">
+    <div class="index_about wid1200 clearfix">
+        <php>$info = db('category')->find(1);</php>
+        <div class="in_ab_con fl">
+            <h3>{$info.name}<span> —— 专注办公机具制造</span></h3>
+            <b>{$info.short_name}</b>
+            <p>{$info.content|strip_tags|msubstr=###,0,220}...</p>
+            <a href="/list/{$info.id}">more+</a>
+        </div>
+        <div class="in_ab_pic fr">
+            <ul>
+                <li>
+                    <dl>
+                        <dt>宗旨</dt>
+                        <dd>品牌保证、技术领先、</dd>
+                        <dd>专业安装、人性化服务</dd>
+                    </dl>
+                </li>
+                <li><img src="/template/images/pic_09.jpg" width="200" height="173"></li>
+                <li>
+                    <dl>
+                        <dt>荣誉</dt>
+                        <dd>获得十余项国家专利30余款优良产品</dd>
+                    </dl>
+                </li>
+                <li><img src="/template/images/pic_15.jpg" width="200" height="173"></li>
+                <li>
+                    <dl>
+                        <dt>宗旨</dt>
+                        <dd>以人为本、科技兴业</dd>
+                        <dd>勇于创新、超越发展</dd>
+                    </dl>
+                </li>
+                <li><img src="/template/images/pic_12.jpg" width="200" height="173"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="index_pro clearfix">
+        <div class="in_pro_con wid1200">
+            <h3>产品展示<span> —— 专注办公机具制造</span></h3>
+            <b>PRODUCTS</b>
+            <ul class="clearfix">
+                <volist name="article" id="vo">
+                    <li><img src="{$vo.cover}" width="279" height="222">
+                        <dl>
+                            <dt>{$vo.title}</dt>
+                            <dd>{$info.content|strip_tags|msubstr=###,0,108,'utf-8',true}</dd>
+                        </dl>
+                        <a href="/view/{$vo.id}">更多>></a>
+                    </li>
+                </volist>
+            </ul>
+            <div class="more"><a href="/list/2">更多产品+</a></div>
+        </div>
+    </div>
+    <div class="index_new">
+        <div class="wid1200 clearfix">
+            <div class="in_new_list fl">
+                <div class="in_new_tit">
+                    <P>NEWS</P>
+                    <H3>公司新闻 <span> —— 专注办公机具制造</span></3>
+            </div>
+            <div class="in_nwe_l fl">
+              <h4>[公司新闻]</h4>
+              <ul>
+                <volist name="new1" id="vo">
+                    <li><a href="/view/{$vo.id}">{$vo.title}</a><p>{$vo.update_time|date="Y-m-d",###}</p></li>
+                </volist>
+              </ul>
+            </div>
+            <div class="in_nwe_r fr">
+            <h4>[行业动态]</h4>
+              <ul>
+                <volist name="new2" id="vo">
+                    <li><a href="/view/{$vo.id}">{$vo.title}</a><p>{$vo.update_time|date="Y-m-d",###}</p></li>
+                </volist>
+              
+              </ul>
+            </div>
+        </div>
+        <div class="in_tel fr">
+          <div class="in_new_tit">
+              <P>CONTACT</P>
+                <H3>联系我们 <span> —— 专注办公机具制造</span></3>
+            </div>
+            <div class="con_info">
+            <p><img src="/template/images/ico_03.jpg" width="24" height="21"> 电话：<span>{:config('c_tel')}</span></p>
+            <p><img src="/template/images/ico_06.jpg" width="24" height="21"> 邮箱：{:config('c_email')}</p>
+            <p><img src="/template/images/ico_08.jpg" width="24" height="21"> 地址：{:config('c_address')}</p>
+            </div>
+        </div>
+     </div>
+</block>

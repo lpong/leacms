@@ -65,41 +65,13 @@ layui.use(['layer', 'element', 'form', 'laydate'], function() {
         range: '~'
     });
 
-
-    //监听提交
-    form.on('submit(layform)', function(data) {
-        var target = $(data.elem).attr('target') || 0;
-        $.post(data.form.action, data.field, function(res) {
-            if (res.code == 1) {
-                if (target) {
-                    if (res.url) {
-                        window.location.href = res.url;
-                    } else {
-                        window.location.reload();
-                    }
-                } else {
-                    if ($(data.elem).closest('.ajax-list').length) {
-                        $(data.elem).closest('.ajax-list').getList(lea.cache_list_url);
-                    }
-                }
-                layer.msg(res.msg, {
-                    time: 1000,
-                    icon: 6
-                });
-            } else {
-                layer.msg(lea2msg(res.msg), {
-                    time: 1500,
-                    icon: 5
-                });
-            }
-        });
-        return false;
-    });
-
     $(document).on('click', '.ajax-submit', function(event) {
         event.preventDefault();
         var self = $(this);
         self.attr('disabled', 'disabled');
+        if (KindEditor) {
+            KindEditor.sync('#content');
+        }
         $.post(self.attr('action'), self.closest('form').serialize(), function(data) {
             layer.msg(lea2msg(data.msg), function() {
                 if (data.url) {

@@ -10,5 +10,7 @@
 // +----------------------------------------------------------------------
 
 return [
-    'view/:id'  => ['v1/app/article', ['method' => 'get|post'], []],
+    'view/:id' => ['home/article/article', ['method' => 'get|post'], []],
+    'list/:id' => ['home/article/lists', ['method' => 'get|post'], []],
+    'search' => ['home/article/search', ['method' => 'get|post'], []]
 ];
