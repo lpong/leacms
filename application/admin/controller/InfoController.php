@@ -42,9 +42,9 @@ class InfoController extends CommonController
     //更新头像
     public function updateFace()
     {
-        $face = $this->request->post('face', 0, 'intval');
+        $face = $this->request->post('face', '', 'trim');
         if (Db::name('admin')->where('id', session('admin.id'))->setField('face', $face) !== false) {
-            session('admin.face', get_file_path($face));
+            session('admin.face', $face);
 
             $this->success('修改成功');
         }

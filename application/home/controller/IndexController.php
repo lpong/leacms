@@ -10,7 +10,9 @@ namespace app\home\controller;
 
 use app\common\model\Category;
 use app\common\util\Tree;
+use think\controller\Yar;
 use think\Db;
+use think\Validate;
 
 class IndexController extends BaseController
 {
@@ -31,5 +33,31 @@ class IndexController extends BaseController
             'new1'    => $new1,
             'new2'    => $new2
         ]);
+    }
+
+    /**
+     * 留言
+     * @return \think\response\View
+     */
+    public function message()
+    {
+        if ($this->request->isPost()) {
+            $post     = $this->request->post();
+            $validate = new Validate([
+                'mobile'  => 'require|is_phone',
+                'name'    => 'require|max:64',
+                'content' => 'require:max:255'
+            ]);
+            if (!$validate->check($post)) {
+                $this->error($validate->getError());
+            }
+            $post['at_time'] = time();
+            if (Db::name('message')->insert($post) > 0) {
+                $this->success('留言成功');
+            }
+            $this->error('留言失败');
+        } else {
+            return view();
+        }
     }
 }

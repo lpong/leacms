@@ -1,0 +1,35 @@
+<extend name="public/base" />
+<block name="body">
+    <div class="navbar navbar-default">
+        <form class="navbar-form form-inline" method="post">
+            <div class="form-group">
+                <a href="{:url('add')}" class="btn btn-info btn-sm" title="添加规则"><i class="fa fa-plus"></i> 添加</a>
+            </div>
+        </form>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-condensed table-striped  text-center">
+            <tbody>
+                <tr>
+                    <th style="width: 48px">#</th>
+                    <th>
+                        <div class="text-left">标题</div>
+                    </th>
+                    <th style="width: 180px">操作</th>
+                </tr>
+                <volist name="list" id="vo">
+                    <tr>
+                        <td>{$key+1}</td>
+                        <td>
+                            <div class="text-left">{$vo.title}</div>
+                        </td>
+                        <td>
+                            <a href="{:url('edit',['id'=>$vo['id']])}" class="btn btn-xs btn-info" title="编辑"><i  class="fa fa-edit"></i> 编辑</a>
+                            <a href="{:url('delete',['id'=>$vo['id']])}" title="删除" confirm="1" class="btn btn-xs btn-danger ajax-get" target="1"><i class="fa fa-trash"></i> 删除</a>
+                        </td>
+                    </tr>
+                </volist>
+            </tbody>
+        </table>
+    </div>
+</block>

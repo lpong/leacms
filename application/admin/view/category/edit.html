@@ -45,8 +45,8 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">类型</label>
                             <div class="layui-input-block">
-                                <input type="radio" name="type" value="1" title="单页" checked>
-                                <input type="radio" name="type" value="2" title="列表">
+                                <input type="radio" name="type" value="1" title="单页" <notempty name="info"><eq name="info.type" value="1">checked</eq></notempty>>
+                                <input type="radio" name="type" value="2" title="列表" <notempty name="info"><eq name="info.type" value="2">checked</eq></notempty>>
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -55,6 +55,30 @@
                                 <input type="number" name="sort" value="{$info.sort|default='0'}" class="layui-input">
                             </div>
                             <div class="layui-form-mid layui-word-aux">如：1，2</div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">SEO标题</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="meta_title" value="{$info.meta_title|default=''}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">SEO关键词</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="meta_keyword" value="{$info.meta_keyword|default=''}" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">SEO描述</label>
+                            <div class="layui-input-block">
+                                <textarea name="meta_description" class="layui-textarea">{$info.meta_description|default=""}</textarea>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">模板</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="template_list" value="{$info.template_list|default=''}" class="layui-input">
+                            </div>
                         </div>
                     </div>
                 </div>

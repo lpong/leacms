@@ -3,25 +3,32 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{:config('web_site_title')}</title>
+    <title>{$meta_title}</title>
+    <meta name="keywords" content="{$meta_keyword}">
+    <meta name="description" content="{$meta_description}">
+    <link href="/template/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/template/js/jquery.min.js"></script>
+    <script src="/template/js/jquery.flexslider-min.js"></script>
+    <base target="_blank" />
 </head>
-<link href="/template/css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/template/js/jquery.min.js"></script>
-<script src="/template/js/jquery.flexslider-min.js"></script>
 
 <body>
     <!--header B -->
     <header class="wid1200">
-        <div class="logo fl"><img src="/template/images/pic_03.jpg" width="420" height="85"></div>
+        <div class="logo fl"><a href="/"><img src="/template/images/pic_03.jpg" width="420" height="85"></a></div>
         <div class="search fr">
             <p class="tel">咨询热线：<span>{:config('c_tel')}</span></p>
             <div class="clearfix">
-                <input type="text" id="keyword" class="tex fl">
-                <input type="button" id="search" value="{:input('q','')}" placeholder="搜索" class="btn fl">
+                <input type="text" id="keyword" value="{:input('q','')}" class="tex fl">
+                <input type="button" id="search" value="搜索" placeholder="搜索" class="btn fl">
             </div>
             <script type="text/javascript">
             $('#search').click(function() {
                 var text = $('#keyword').val();
+                if (!text) {
+                    alert('请输入关键词');
+                    return false;
+                }
                 window.location.href = '/search?q=' + text;
             });
             </script>
@@ -129,14 +136,16 @@
                 </dl>
             </div>
             <div class="f_c fl">
-                工厂地址：天津市天津市天津市天津市天津市
-                <br> 联系电话：022-12345678、022-12345678
-                <br> FAX 传真：022-12345678
-                <br> 联络邮箱：123456789@qq.com
+                工厂地址：{:config('c_address')}
+                <br> 联系电话：{:config('c_tel')}
+                <br> FAX 传真：{:config('c_fax')}
+                <br> 联络邮箱：{:config('c_mail')}
             </div>
             <div class="f_r fl"><img src="/template/images/wx_03.png" width="158" height="158"></div>
             <div class="clear"></div>
-            <p class="link">友情链接 <a href="#">百度</a> <a href="#">百度</a> <a href="#">百度</a> <a href="#">百度</a> <a href="#">百度</a></p>
+            <p class="link">友情链接
+                <volist name="link" id="vo"><a href="{$vo.url}">{$vo.title}</a> </volist>
+            </p>
             <p>版权所有 {:config('web_copyright')} {:config('web_beian')} 技术支持：<a href="http://www.wzjs888.com/">匠人匠心</a></p>
         </div>
     </footer>

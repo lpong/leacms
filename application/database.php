@@ -15,11 +15,11 @@ return [
     // 服务器地址
     'hostname'        => 'localhost',
     // 数据库名
-    'database'        => 'tianaokeji',
+    'database'        => 'leacms',
     // 用户名
-    'username'        => 'tianaokeji',
+    'username'        => 'root',
     // 密码
-    'password'        => 'k2sh5t2w',
+    'password'        => '123456',
     // 端口
     'hostport'        => '',
     // 连接dsn

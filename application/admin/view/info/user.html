@@ -52,7 +52,7 @@
                                         </button>
                                     </div>
                                     <div class="img">
-                                        <img src="{$info.face|get_file_path}">
+                                        <img src="{$info.face}">
                                     </div>
                                     <span class="loading"></span>
                                 </div>
@@ -96,11 +96,11 @@
                 var input = '#test1';
                 $(input).closest('.avatar-add').find('.loading').hide();
                 if (res.code == 0) {
-                    $.post("{:url('updateFace')}", 'face=' + res.data.id, function(data) {
+                    $.post("{:url('updateFace')}", 'face=' + res.key, function(data) {
                         if (data.code == 1) {
-                            $(input).closest('.avatar-add').find('img').attr('src', res.data.src);
+                            $(input).closest('.avatar-add').find('img').attr('src', res.key);
                         } else {
-                            layer.msg(data.msg);
+                            layer.msg(res.msg);
                         }
                     });
                 } else {

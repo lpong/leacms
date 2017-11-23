@@ -1,0 +1,18 @@
+<extend name="./template/base.html" />
+<block name="body">
+    <div class="main wid1200">
+        <div class="left">
+           <include file="left" />
+        </div>
+        <div class="right">
+            <div class="pub_tit">
+                <P>{$info.name}
+                    <br /><span>{$info.short_name}</span></P>
+            </div>
+            <div class="dycon clearfix">
+                {$info.content}
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</block>

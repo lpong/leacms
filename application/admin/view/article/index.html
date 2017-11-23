@@ -7,7 +7,7 @@
                 <select name="category_id" class="form-control input-sm">
                     <option value="0">全部</option>
                     <volist name="category" id="vo">
-                        <option value="{$key}">{$vo.html}{$vo.name}</option>
+                        <option value="{$vo.id}">{$vo.html}{$vo.name}</option>
                     </volist>
                 </select>
                 <input type="text" name="keyword" class="form-control input-sm" placeholder="关键词" style="width:240px;">

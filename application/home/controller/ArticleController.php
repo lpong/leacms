@@ -46,7 +46,11 @@ class ArticleController extends BaseController
         $this->assign('info', $info);
         $this->assign('category_list', $category_list);
         $this->assign('parent', $parent);
-        return view("./template/{$template}.html");
+        return view("./template/{$template}.html",[
+            'meta_title'       => $info['meta_title'],
+            'meta_keyword'     => $info['meta_keyword'],
+            'meta_description' => $info['meta_description'],
+        ]);
     }
 
     public function search()
@@ -106,10 +110,13 @@ class ArticleController extends BaseController
 
         $template = $info['template_detail'] ? $info['template_detail'] : 'view';
         return view("./template/{$template}.html", [
-            'info'          => $info,
-            'article'       => $article,
-            'parent'        => $parent,
-            'category_list' => $category_list
+            'info'             => $info,
+            'article'          => $article,
+            'parent'           => $parent,
+            'category_list'    => $category_list,
+            'meta_title'       => $article['meta_title'],
+            'meta_keyword'     => $article['meta_keyword'],
+            'meta_description' => $article['meta_description'],
         ]);
     }
 }

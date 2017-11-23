@@ -20,11 +20,19 @@ class BaseController extends Controller
     {
         parent::_initialize();
         ConfigApi::config();
-        $category = Db::name('category')->where('status', 1)->where('id', 'neq', 7)->select();
+        $category = Db::name('category')->where('status', 1)->select();
         $list     = Tree::unlimitForLayer($category);
         $this->assign('__category__', $list);
 
         $banner = Db::name('ad')->where('type', 1)->select();
         $this->assign('banner', $banner);
+
+        //友情连接
+        $link = Db::name('link')->order('sort asc')->select();
+        $this->assign('link', $link);
+
+        $this->assign('meta_title', config('web_site_title'));
+        $this->assign('meta_keyword', config('web_site_keyword'));
+        $this->assign('meta_description', config('web_site_description'));
     }
 }

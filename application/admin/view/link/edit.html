@@ -1,0 +1,45 @@
+<extend name="public/base" />
+<block name="body">
+    <div class="box-body">
+        <form class="layui-form" action="{:url()}" method="post" id="goods-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">网站名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" placeholder="" value="{$info.title|default=''}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">连接</label>
+                <div class="layui-input-block">
+                    <input type="text" name="url" placeholder="" value="{$info.url|default=''}" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-block">
+                    <input type="text" name="sort" placeholder="" value="{$info.sort|default='0'}" class="layui-input">
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="btn btn-primary ajax-submit" target="1"><i class="fa fa-save"></i> 保存</button>
+                    <button type="reset" class="btn btn-default" style="margin-left: 20px;">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</block>
+<block name="script">
+    <script charset="utf-8" src="__PUBLIC__/kindeditor/kindeditor-all-min.js"></script>
+    <script charset="utf-8" src="__PUBLIC__/kindeditor/lang/zh-CN.js"></script>
+    <script type="text/javascript">
+    KindEditor.ready(function(K) {
+        window.editor = K.create('textarea[name="content"]', {
+            uploadJson: "{:url('file/uploadEditor')}",
+            fileManagerJson: '__PUBLIC__/kindeditor/php/file_manager_json.php',
+            allowFileManager: true,
+        });
+    });
+    </script>
+</block>
