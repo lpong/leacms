@@ -44,14 +44,16 @@ class IndexController extends BaseController
         if ($this->request->isPost()) {
             $post     = $this->request->post();
             $validate = new Validate([
-                'mobile'  => 'require|is_phone',
-                'name'    => 'require|max:64',
-                'content' => 'require:max:255'
+                'name|姓名'     => 'require|max:64',
+                'mobile|手机号'  => 'require|max:20',
+                'content|内容'  => 'require|max:255',
+                'captcha|验证码' => 'require|captcha'
             ]);
             if (!$validate->check($post)) {
                 $this->error($validate->getError());
             }
             $post['at_time'] = time();
+            unset($post['captcha']);
             if (Db::name('message')->insert($post) > 0) {
                 $this->success('留言成功');
             }

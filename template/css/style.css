@@ -203,3 +203,58 @@ footer{ height:300px; background: url(../images/pic_23.jpg) repeat-x; color:#fff
 .content{text-align:center;}
 .content a{ display:block; border-bottom:solid 1px #eee; height:36px; line-height:36px;}
 .content a:hover{ color:#2a7fd9;}
+/***留言板****/
+.mes {
+	padding: 25px 80px;
+}
+.mes .box {
+	background: #f3f3f3;
+	margin-bottom: 3px;
+	padding: 10px 0;
+}
+.mes .box span {
+	display: inline-block;
+	width: 95px;
+	text-align: right;
+	padding-right: 15px;
+	font-size: 14px;
+	color: #575757;
+	vertical-align: middle;
+}
+.mes .box input, .mes .box textarea {
+	display: inline-block;
+	vertical-align: middle;
+	width: 320px;
+	height: 28px;
+	line-height: 28px;
+	padding: 0 10px;
+	border: 0;
+	border-radius: 4px;
+	background: #838383;
+	box-shadow: inset 2px 1px 2px #747474;
+	font-size: 14px;
+	color: #fff;
+	font-family: "微软雅黑";
+}
+.mes .box textarea {
+	vertical-align: top;
+	height: 56px;
+	overflow: auto;
+}
+.mes .box input.yzm {
+	width: 115px;
+	margin-right: 15px;
+}
+.mes .box input.btn_ly {
+	width: 142px;
+	font-size: 18px;
+	background: #038f75;
+	border-radius: 0;
+	padding: 0;
+	margin-left: 110px;
+	box-shadow: none;
+	cursor: pointer;
+}
+.mes .box img {
+	vertical-align: middle;
+}

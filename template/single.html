@@ -2,16 +2,7 @@
 <block name="body">
     <div class="main wid1200">
         <div class="left">
-            <div class="plist_bt">{$parent.name}
-                <p>{$parent.short_name}</p>
-            </div>
-            <ul class="plist_bl">
-                <notempty name="category_list">
-                    <volist name="category_list" id="vo">
-                        <li><a href="/list/{$vo.id}">{$vo.name}</a></li>
-                    </volist>
-                </notempty>
-            </ul>
+            <include file="./template/left.html" />
         </div>
         <div class="right">
             <div class="pub_tit">

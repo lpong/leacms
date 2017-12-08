@@ -2,17 +2,48 @@
 <block name="body">
     <div class="main wid1200">
         <div class="left">
-           <include file="left" />
+            <include file="./template/left.html" />
         </div>
         <div class="right">
             <div class="pub_tit">
                 <P>{$info.name}
                     <br /><span>{$info.short_name}</span></P>
             </div>
-            <div class="dycon clearfix">
-                {$info.content}
+            <div class="main-cont">
+                <div class="mes">
+                    <form action="{:url('index/message')}" method="post">
+                        <div class="box"> <span>姓名</span>
+                            <input name="name" type="text">
+                        </div>
+                        <div class="box"> <span>手机号</span>
+                            <input name="mobile" type="text">
+                        </div>
+                        <div class="box"> <span>留言内容</span>
+                            <textarea name="content" cols="" rows=""></textarea>
+                        </div>
+                        <div class="box"> <span>验证码</span>
+                            <input name="captcha" type="text" class="yzm">
+                            <img src="{:captcha_src()}" onclick="this.src = '{:captcha_src()}?' + Math.random(1);" style="height: 30px"> </div>
+                        <div class="box">
+                            <input type="button" value="提交" class="btn_ly" id="submit">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="clear"></div>
     </div>
+    <script type="text/javascript">
+    $('#submit').click(function() {
+        var $this = $(this);
+        $.post("{:url('index/message')}", $this.closest('form').serialize(), function(data) {
+            alert(data.msg);
+            if (data.code == 1) {
+                window.location.reload();
+            }
+            $this.closest('form').find('img').click();
+        });
+
+    });
+    </script>
 </block>

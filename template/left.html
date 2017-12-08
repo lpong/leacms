@@ -1,0 +1,16 @@
+<div class="plist_bt">{$parent.name}
+    <p>{$parent.short_name}</p>
+</div>
+<ul class="plist_bl">
+    <notempty name="category_list">
+        <volist name="category_list" id="vo">
+            <li><a href="/list/{$vo.id}">{$vo.name}</a></li>
+        </volist>
+    </notempty>
+</ul>
+<div class="fl">
+    工厂地址：{:config('c_address')}
+    <br> 联系电话：{:config('c_tel')}
+    <br> FAX 传真：{:config('c_fax')}
+    <br> 联络邮箱：{:config('c_mail')}
+</div>
